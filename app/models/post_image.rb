@@ -8,9 +8,9 @@ class PostImage < ApplicationRecord
   validates :shop_name, presence: true
   validates :image, presence: true
 
-  def get_image
+  def get_image(width, height)
     if image.attached?
-      image
+      image.variant(resize_to_fill: [width, height]).processed
     else
       'no_image.png'  # public/images に置いたデフォルト画像
     end
